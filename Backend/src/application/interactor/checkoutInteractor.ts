@@ -33,7 +33,7 @@ export class CheckoutInteractor implements ICheckoutInteractor {
 
         if(paymentMethod==="Tabby")
         {
-            return {secretKey:envConfig.RAZORPAY_SECRET_KEY as string}
+            return {secretKey:envConfig.STRIPE_SECRET_KEY as string}
         }
         else if(paymentMethod==="Stripe")
         {

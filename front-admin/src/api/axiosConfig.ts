@@ -4,7 +4,7 @@ import { logout } from "../state/adminSlice";
 
 export const useApi = (): AxiosInstance => {
   const axiosInstance: AxiosInstance = axios.create({
-    baseURL:  "https://testfro.adilc0070.site",
+    baseURL:  "http://localhost:3000/",
     withCredentials: true,  
   });
 
@@ -25,13 +25,19 @@ export const useApi = (): AxiosInstance => {
   axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-      const { response } = error;
+      const { response,request } = error;
 
       // Check for 403 Forbidden
       if (response && response.status === 403) {
         console.error('403 error: Unauthorized access. Logging out.'); // Log specific error
         store.dispatch(logout());
         window.location.href = '/'; // Adjust the path if needed
+      }
+      if(request)
+      {
+        store.dispatch(logout());
+        window.location.href = '/'; // Adjust the path if needed
+
       }
 
       return Promise.reject(error);
